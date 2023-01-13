@@ -1,22 +1,27 @@
-import { ButtonHTMLAttributes } from 'react'
-import './Button.scss'
+import { ButtonHTMLAttributes } from 'react';
+import './Button.scss';
 
 type ButtonProps = {
-  width?: string
-}
+  width?: string;
+};
 
-export const Button = ({
+export default function Button({
   children,
   width,
   className,
   style,
   ...props
-}: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>): JSX.Element => {
-  const classname = `button${className ? ' ' + className : ''}`
+}: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>): JSX.Element {
+  const classname = `button${className ? ` ${className}` : ''}`;
 
   return (
-    <button {...props} style={{ width: width, ...style }} className={classname}>
+    <button
+      {...props}
+      style={{ width, ...style }}
+      className={classname}
+      type="button"
+    >
       {children}
     </button>
-  )
+  );
 }

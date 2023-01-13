@@ -1,27 +1,11 @@
-import React, { useState } from 'react'
-import './App.css'
-import { TodoContainer } from './components/TodoContainer/TodoContainer'
-import { Todo } from './components/Todo/Todo'
-import { v4 as uuid } from 'uuid'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-
-export type TodoType = {
-  title: string
-  titlePlaceholder: string
-  text: string
-  textPlaceholder: string
-  done: boolean
-  id: string
-  active: boolean
-}
-
-export type TodoContainerType = {
-  id: string
-  title: string
-  active: boolean
-  todos: TodoType[]
-}
+import React, { useState } from 'react';
+import './App.css';
+import { v4 as uuid } from 'uuid';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import Todo from './components/Todo/Todo';
+import TodoContainer from './components/TodoContainer/TodoContainer';
+import { TodoType, TodoContainerType } from './types/todoTypes';
 
 const mockedList: TodoContainerType[] = [
   {
@@ -126,11 +110,11 @@ const mockedList: TodoContainerType[] = [
       },
     ],
   },
-]
+];
 
 function App() {
   const [todoContainers, setTodoContainers] =
-    useState<TodoContainerType[]>(mockedList)
+    useState<TodoContainerType[]>(mockedList);
 
   const addTodo = (containerId: TodoContainerType['id']) => {
     const emptyTask = {
@@ -141,7 +125,7 @@ function App() {
       done: false,
       id: uuid(),
       active: true,
-    }
+    };
 
     setTodoContainers((containers) =>
       containers.map((c) => {
@@ -149,24 +133,26 @@ function App() {
           return {
             ...c,
             todos: [emptyTask, ...c.todos],
-          }
-        } else return c
-      })
-    )
-  }
+          };
+        }
+        return c;
+      }),
+    );
+  };
 
   const deleteTodo = (
     containerId: TodoContainerType['id'],
-    todoId: TodoType['id']
+    todoId: TodoType['id'],
   ) => {
     setTodoContainers((containers) =>
       containers.map((c) => {
         if (c.id === containerId) {
-          return { ...c, todos: c.todos.filter((todo) => todo.id !== todoId) }
-        } else return c
-      })
-    )
-  }
+          return { ...c, todos: c.todos.filter((todo) => todo.id !== todoId) };
+        }
+        return c;
+      }),
+    );
+  };
 
   const addContainer = () => {
     const emptyContainer = {
@@ -174,13 +160,13 @@ function App() {
       title: '',
       active: true,
       todos: [],
-    }
-    setTodoContainers((containers) => [...containers, emptyContainer])
-  }
+    };
+    setTodoContainers((containers) => [...containers, emptyContainer]);
+  };
 
   const renderTodos = (
     todos: TodoType[],
-    containerId: TodoContainerType['id']
+    containerId: TodoContainerType['id'],
   ): JSX.Element[] => {
     return todos.map((el, idx) => (
       <Todo
@@ -191,14 +177,15 @@ function App() {
         idx={idx}
         containerId={containerId}
       />
-    ))
-  }
+    ));
+  };
 
   return (
     <div className="App">
       <DndProvider backend={HTML5Backend}>
         <div className="containersWrapper">
           <button
+            type="button"
             className="containersWrapper__addButton"
             onClick={addContainer}
           >
@@ -214,12 +201,12 @@ function App() {
               >
                 {renderTodos(c.todos, c.id)}
               </TodoContainer>
-            )
+            );
           })}
         </div>
       </DndProvider>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
