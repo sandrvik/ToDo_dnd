@@ -4,7 +4,7 @@ import { useDrop } from 'react-dnd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { Items } from '../types/types';
-import { TodoContainerType, TodoType } from '../../App';
+import { TodoContainerType, TodoType } from '../../types/todoTypes';
 import { Input } from '../UI/Input/Input';
 import useAutoFocus from '../../hooks/useAutofocus';
 import { CountIcon } from '../UI/CountIcon/CountIcon';

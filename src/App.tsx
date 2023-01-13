@@ -5,23 +5,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Todo } from './components/Todo/Todo';
 import { TodoContainer } from './components/TodoContainer/TodoContainer';
-
-export type TodoType = {
-  title: string;
-  titlePlaceholder: string;
-  text: string;
-  textPlaceholder: string;
-  done: boolean;
-  id: string;
-  active: boolean;
-};
-
-export type TodoContainerType = {
-  id: string;
-  title: string;
-  active: boolean;
-  todos: TodoType[];
-};
+import { TodoType, TodoContainerType } from './types/todoTypes';
 
 const mockedList: TodoContainerType[] = [
   {

@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
-import { TodoContainerType, TodoType } from '../../App';
+import { TodoContainerType, TodoType } from '../../types/todoTypes';
 import { Input } from '../UI/Input/Input';
 import { TextArea } from '../UI/Input/TextArea';
 import './Todo.css';
