@@ -1,23 +1,23 @@
-import React, { InputHTMLAttributes, useEffect, useRef } from 'react'
+import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 
 export interface ITextArea extends InputHTMLAttributes<HTMLTextAreaElement> {
-  props: []
+  props: [];
 }
 
-export const TextArea = (
-  props: InputHTMLAttributes<HTMLTextAreaElement>
-): JSX.Element => {
-  const ref = useRef<HTMLTextAreaElement>(null)
+export function TextArea(
+  props: InputHTMLAttributes<HTMLTextAreaElement>,
+): JSX.Element {
+  const ref = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    ref.current && (ref.current.style.height = '0px')
-    ref.current && (ref.current.style.height = ref.current.scrollHeight + 'px')
-  }, [])
+    ref.current && (ref.current.style.height = '0px');
+    ref.current && (ref.current.style.height = `${ref.current.scrollHeight}px`);
+  }, []);
 
   const onInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    e.target.style.height = '0px'
-    e.target.style.height = e.target.scrollHeight + 'px'
-  }
+    e.target.style.height = '0px';
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  };
 
   return (
     <textarea
@@ -27,5 +27,5 @@ export const TextArea = (
       onInput={onInput}
       ref={ref}
     />
-  )
+  );
 }

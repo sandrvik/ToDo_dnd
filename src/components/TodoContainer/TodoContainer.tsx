@@ -1,26 +1,26 @@
-import './TodoContainer.scss'
-import React, { Dispatch, SetStateAction, useState } from 'react'
-import { useDrop } from 'react-dnd'
-import { Items } from '../types/types'
-import { TodoContainerType, TodoType } from '../../App'
-import { Input } from '../UI/Input/Input'
-import useAutoFocus from '../../hooks/useAutofocus'
-import { CountIcon } from '../UI/CountIcon/CountIcon'
-import { Button } from '../UI/Button/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
+import './TodoContainer.scss';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { useDrop } from 'react-dnd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { Items } from '../types/types';
+import { TodoContainerType, TodoType } from '../../App';
+import { Input } from '../UI/Input/Input';
+import useAutoFocus from '../../hooks/useAutofocus';
+import { CountIcon } from '../UI/CountIcon/CountIcon';
+import { Button } from '../UI/Button/Button';
 
 type TodoContainerProps = {
-  container: TodoContainerType
-  addTodo: (id: TodoContainerType['id']) => void
-  setTodoContainers: Dispatch<SetStateAction<TodoContainerType[]>>
-  children: JSX.Element[]
-}
+  container: TodoContainerType;
+  addTodo: (id: TodoContainerType['id']) => void;
+  setTodoContainers: Dispatch<SetStateAction<TodoContainerType[]>>;
+  children: JSX.Element[];
+};
 
-export const TodoContainer = (props: TodoContainerProps): JSX.Element => {
-  const { container, children, addTodo, setTodoContainers } = props
+export function TodoContainer(props: TodoContainerProps): JSX.Element {
+  const { container, children, addTodo, setTodoContainers } = props;
 
-  const [containerTitle, setContainerTitle] = useState<string>(container.title)
+  const [containerTitle, setContainerTitle] = useState<string>(container.title);
 
   const [{}, drop] = useDrop(
     {
@@ -32,12 +32,15 @@ export const TodoContainer = (props: TodoContainerProps): JSX.Element => {
       }),
       canDrop: () => !container.todos.length,
     },
-    [container]
-  )
+    [container],
+  );
 
   const handleDrop = (draggedItem: unknown) => {
-    let dragged = draggedItem as TodoType & { idx: number; containerId: string }
-    const { idx: index, containerId, ...plainTask } = dragged
+    const dragged = draggedItem as TodoType & {
+      idx: number;
+      containerId: string;
+    };
+    const { idx: index, containerId, ...plainTask } = dragged;
     if (container.todos.length === 0) {
       setTodoContainers((containers) => {
         return containers.map((c) => {
@@ -45,60 +48,63 @@ export const TodoContainer = (props: TodoContainerProps): JSX.Element => {
             return {
               ...c,
               todos: [plainTask],
-            }
+            };
           }
           if (c.id === containerId) {
             const listWithoutDraggedTask = c.todos.filter(
-              (t) => t.id !== dragged.id
-            )
+              (t) => t.id !== dragged.id,
+            );
             return {
               ...c,
               todos: listWithoutDraggedTask,
-            }
-          } else return c
-        })
-      })
-      dragged.containerId = container.id
+            };
+          }
+          return c;
+        });
+      });
+      dragged.containerId = container.id;
     }
-  }
+  };
 
   const deactivateFocus = () => {
     setTodoContainers((containers) => {
       return containers.map((c) => {
         if (c.id === container.id) {
-          return { ...c, active: false }
-        } else return c
-      })
-    })
-  }
+          return { ...c, active: false };
+        }
+        return c;
+      });
+    });
+  };
 
-  const titleRef = useAutoFocus(container.active, deactivateFocus)
+  const titleRef = useAutoFocus(container.active, deactivateFocus);
 
   const handleSaveTitle = (id: TodoContainerType['id']) => {
     setTodoContainers((containers) => {
       return containers.map((c) => {
         if (c.id === id) {
-          return { ...c, title: containerTitle }
-        } else return c
-      })
-    })
-  }
+          return { ...c, title: containerTitle };
+        }
+        return c;
+      });
+    });
+  };
 
   const deleteContainer = (id: TodoContainerType['id']) => {
-    setTodoContainers((prev) => prev.filter((c) => c.id !== id))
-  }
+    setTodoContainers((prev) => prev.filter((c) => c.id !== id));
+  };
 
   return (
     <div className="todoContainer">
       <div className="todoContainer__header">
         <Input
           ref={titleRef}
-          className={'todoContainer__title'}
+          className="todoContainer__title"
           value={containerTitle}
           onChange={(e) => setContainerTitle(e.target.value)}
           onBlur={() => handleSaveTitle(container.id)}
-          placeholder={'Container title'}
-          draggable={true}
+          placeholder="Container title"
+          draggable
           onDragStart={(event) => event.preventDefault()}
         />
         <div className="todoContainer__buttons">
@@ -125,5 +131,5 @@ export const TodoContainer = (props: TodoContainerProps): JSX.Element => {
         {children}
       </ul>
     </div>
-  )
+  );
 }

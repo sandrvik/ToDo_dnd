@@ -1,27 +1,27 @@
-import React, { useRef, useState } from 'react'
-import { Input } from './Input/Input'
+import React, { useRef, useState } from 'react';
+import { Input } from './Input/Input';
 
 type TitleProps = {
-  children: string
-  level?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  isEditable?: boolean
-  onBlur: (v: string) => void
-}
+  children: string;
+  level?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  isEditable?: boolean;
+  onBlur: (v: string) => void;
+};
 
-export const Title = ({
+export function Title({
   children,
   level = 'h1',
   isEditable = false,
   onBlur,
-}: TitleProps): JSX.Element => {
-  const [isTitleEditable, setIsTitleEditable] = useState<boolean>(false)
-  const [text, setText] = useState<string>(children)
+}: TitleProps): JSX.Element {
+  const [isTitleEditable, setIsTitleEditable] = useState<boolean>(false);
+  const [text, setText] = useState<string>(children);
 
-  const ref = useRef<HTMLHeadingElement | null>(null)
+  const ref = useRef<HTMLHeadingElement | null>(null);
 
-  const H = level
+  const H = level;
   if (ref.current) {
-    console.log(window.getComputedStyle(ref.current))
+    console.log(window.getComputedStyle(ref.current));
   }
   return (
     <>
@@ -30,8 +30,8 @@ export const Title = ({
           value={text}
           onChange={(e) => setText(e.target.value)}
           onBlur={() => {
-            onBlur(text)
-            setIsTitleEditable(false)
+            onBlur(text);
+            setIsTitleEditable(false);
           }}
         />
       ) : (
@@ -40,7 +40,7 @@ export const Title = ({
         </H>
       )}
     </>
-  )
+  );
   // {isTitleEditable ? (
   //     <H onClick={() => setIsTitleEditable(true)}>{children}</H>
   //   ) : null}

@@ -1,11 +1,11 @@
-import { XYCoord } from 'react-dnd'
+import { XYCoord } from 'react-dnd';
 
 export function getIsDraggedAfterMiddle(
   mousePosition: XYCoord,
-  targetItem: HTMLElement
+  targetItem: HTMLElement,
 ) {
-  const hoveredRect = targetItem.getBoundingClientRect()
-  const middleOfItem = (hoveredRect.bottom - hoveredRect.top) / 2
-  const cursorPositionOnTarget = mousePosition.y - hoveredRect?.top
-  return cursorPositionOnTarget! > middleOfItem!
+  const hoveredRect = targetItem.getBoundingClientRect();
+  const middleOfItem = (hoveredRect.bottom - hoveredRect.top) / 2;
+  const cursorPositionOnTarget = mousePosition.y - hoveredRect?.top;
+  return cursorPositionOnTarget! > middleOfItem!;
 }
