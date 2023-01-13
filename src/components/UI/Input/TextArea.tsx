@@ -1,17 +1,15 @@
 import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 
-export interface ITextArea extends InputHTMLAttributes<HTMLTextAreaElement> {
-  props: [];
-}
-
-export function TextArea(
+export default function TextArea(
   props: InputHTMLAttributes<HTMLTextAreaElement>,
 ): JSX.Element {
   const ref = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    ref.current && (ref.current.style.height = '0px');
-    ref.current && (ref.current.style.height = `${ref.current.scrollHeight}px`);
+    if (ref.current) {
+      ref.current.style.height = '0px';
+      ref.current.style.height = `${ref.current.scrollHeight}px`;
+    }
   }, []);
 
   const onInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

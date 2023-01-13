@@ -5,7 +5,7 @@ type ButtonProps = {
   width?: string;
 };
 
-export function Button({
+export default function Button({
   children,
   width,
   className,
@@ -15,7 +15,12 @@ export function Button({
   const classname = `button${className ? ` ${className}` : ''}`;
 
   return (
-    <button {...props} style={{ width, ...style }} className={classname}>
+    <button
+      {...props}
+      style={{ width, ...style }}
+      className={classname}
+      type="button"
+    >
       {children}
     </button>
   );

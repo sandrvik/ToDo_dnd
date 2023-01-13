@@ -3,12 +3,12 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { Items } from '../types/types';
+import Items from '../types/types';
 import { TodoContainerType, TodoType } from '../../types/todoTypes';
-import { Input } from '../UI/Input/Input';
+import Input from '../UI/Input/Input';
 import useAutoFocus from '../../hooks/useAutofocus';
-import { CountIcon } from '../UI/CountIcon/CountIcon';
-import { Button } from '../UI/Button/Button';
+import CountIcon from '../UI/CountIcon/CountIcon';
+import Button from '../UI/Button/Button';
 
 type TodoContainerProps = {
   container: TodoContainerType;
@@ -17,23 +17,10 @@ type TodoContainerProps = {
   children: JSX.Element[];
 };
 
-export function TodoContainer(props: TodoContainerProps): JSX.Element {
+export default function TodoContainer(props: TodoContainerProps): JSX.Element {
   const { container, children, addTodo, setTodoContainers } = props;
 
   const [containerTitle, setContainerTitle] = useState<string>(container.title);
-
-  const [{}, drop] = useDrop(
-    {
-      accept: Items.TODO,
-      hover: (draggedItem) => handleDrop(draggedItem),
-      collect: (m) => ({
-        isOver: m.isOver(),
-        getItem: m.getItem(),
-      }),
-      canDrop: () => !container.todos.length,
-    },
-    [container],
-  );
 
   const handleDrop = (draggedItem: unknown) => {
     const dragged = draggedItem as TodoType & {
@@ -65,6 +52,19 @@ export function TodoContainer(props: TodoContainerProps): JSX.Element {
       dragged.containerId = container.id;
     }
   };
+
+  const [, drop] = useDrop(
+    {
+      accept: Items.TODO,
+      hover: (draggedItem) => handleDrop(draggedItem),
+      collect: (m) => ({
+        isOver: m.isOver(),
+        getItem: m.getItem(),
+      }),
+      canDrop: () => !container.todos.length,
+    },
+    [container],
+  );
 
   const deactivateFocus = () => {
     setTodoContainers((containers) => {

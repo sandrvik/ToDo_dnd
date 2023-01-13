@@ -3,8 +3,8 @@ import './App.css';
 import { v4 as uuid } from 'uuid';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { Todo } from './components/Todo/Todo';
-import { TodoContainer } from './components/TodoContainer/TodoContainer';
+import Todo from './components/Todo/Todo';
+import TodoContainer from './components/TodoContainer/TodoContainer';
 import { TodoType, TodoContainerType } from './types/todoTypes';
 
 const mockedList: TodoContainerType[] = [
@@ -185,6 +185,7 @@ function App() {
       <DndProvider backend={HTML5Backend}>
         <div className="containersWrapper">
           <button
+            type="button"
             className="containersWrapper__addButton"
             onClick={addContainer}
           >

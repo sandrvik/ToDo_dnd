@@ -1,13 +1,13 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
-import { TodoContainerType, TodoType } from '../../types/todoTypes';
-import { Input } from '../UI/Input/Input';
-import { TextArea } from '../UI/Input/TextArea';
-import './Todo.css';
 import { DropTargetMonitor, useDrag, useDrop, XYCoord } from 'react-dnd';
-import { Items } from '../types/types';
+import { TodoContainerType, TodoType } from '../../types/todoTypes';
+import Input from '../UI/Input/Input';
+import TextArea from '../UI/Input/TextArea';
+import './Todo.css';
+import Items from '../types/types';
 import useAutoFocus from '../../hooks/useAutofocus';
-import { CrossIcon } from '../UI/CustomIcons/CrossIcon';
-import { getIsDraggedAfterMiddle } from '../../utilities/utilities';
+import CrossIcon from '../UI/CustomIcons/CrossIcon';
+import getIsDraggedAfterMiddle from '../../utilities/utilities';
 
 type TodoProps = {
   todo: TodoType;
@@ -20,7 +20,7 @@ type TodoProps = {
   ) => void;
 };
 
-export function Todo({
+export default function Todo({
   todo,
   setTodoContainers,
   idx,
@@ -29,29 +29,6 @@ export function Todo({
 }: TodoProps): JSX.Element {
   const [todoTitle, setTodoTitle] = useState<string>(todo.title);
   const [todoText, setTodoText] = useState<string>(todo.text);
-  const [{ isDragging }, drag] = useDrag(
-    {
-      type: Items.TODO,
-      item: () => ({ ...todo, idx, containerId }),
-      collect: (m) => ({
-        isDragging: m.isDragging(),
-      }),
-      isDragging: (m) => {
-        return todo.id === m.getItem().id;
-      },
-    },
-    [todo, idx, containerId],
-  );
-  const [{ handlerId }, drop] = useDrop(
-    {
-      accept: Items.TODO,
-      hover: (draggedItem, monitor) => handleDrop(draggedItem, monitor),
-      collect: (m) => ({
-        handlerId: m.getHandlerId(),
-      }),
-    },
-    [todo, idx, containerId],
-  );
 
   const dndRef = useRef<HTMLDivElement | null>(null);
 
@@ -131,6 +108,30 @@ export function Todo({
       }
     }
   };
+
+  const [{ isDragging }, drag] = useDrag(
+    {
+      type: Items.TODO,
+      item: () => ({ ...todo, idx, containerId }),
+      collect: (m) => ({
+        isDragging: m.isDragging(),
+      }),
+      isDragging: (m) => {
+        return todo.id === m.getItem().id;
+      },
+    },
+    [todo, idx, containerId],
+  );
+  const [{ handlerId }, drop] = useDrop(
+    {
+      accept: Items.TODO,
+      hover: (draggedItem, monitor) => handleDrop(draggedItem, monitor),
+      collect: (m) => ({
+        handlerId: m.getHandlerId(),
+      }),
+    },
+    [todo, idx, containerId],
+  );
 
   const deactivateFocus = () => {
     setTodoContainers((containers) => {

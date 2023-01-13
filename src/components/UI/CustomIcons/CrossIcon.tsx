@@ -12,7 +12,7 @@ type CrossIconProps =
       color?: string;
     };
 
-export function CrossIcon({
+export default function CrossIcon({
   size,
   color,
   className,
