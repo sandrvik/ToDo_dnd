@@ -3,9 +3,8 @@ import './App.css';
 import { v4 as uuid } from 'uuid';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import Todo from './components/Todo/Todo';
-import TodoContainer from './components/TodoContainer/TodoContainer';
-import { TodoType, TodoContainerType } from './types/todoTypes';
+import { TodoContainer, TodoContainerType } from '@components/todo-container';
+import { Todo, TodoType } from '@components/todo';
 
 const mockedList: TodoContainerType[] = [
   {
@@ -15,27 +14,27 @@ const mockedList: TodoContainerType[] = [
     todos: [
       {
         title: 'Task 1',
-        titlePlaceholder: 'Todo title',
+        titlePlaceholder: 'todo title',
         text: 'task1task1 task1 task',
-        textPlaceholder: 'Todo text',
+        textPlaceholder: 'todo text',
         done: false,
         id: uuid(),
         active: false,
       },
       {
         title: 'Task 2',
-        titlePlaceholder: 'Todo title',
+        titlePlaceholder: 'todo title',
         text: 'task1task2 task2 task\negaewagaewgaweg\nrereg\nrt\nrtn\nrtherh\nrtherh',
-        textPlaceholder: 'Todo text',
+        textPlaceholder: 'todo text',
         done: false,
         id: uuid(),
         active: false,
       },
       {
         title: 'Task 3',
-        titlePlaceholder: 'Todo title',
+        titlePlaceholder: 'todo title',
         text: 'task3task3 task3 task',
-        textPlaceholder: 'Todo text',
+        textPlaceholder: 'todo text',
         done: false,
         id: uuid(),
         active: false,
@@ -49,27 +48,27 @@ const mockedList: TodoContainerType[] = [
     todos: [
       {
         title: 'Task 1',
-        titlePlaceholder: 'Todo title',
+        titlePlaceholder: 'todo title',
         text: 'task1task1 task1 task',
-        textPlaceholder: 'Todo text',
+        textPlaceholder: 'todo text',
         done: false,
         id: uuid(),
         active: false,
       },
       {
         title: 'Task 2',
-        titlePlaceholder: 'Todo title',
+        titlePlaceholder: 'todo title',
         text: 'task1task2 task2 task',
-        textPlaceholder: 'Todo text',
+        textPlaceholder: 'todo text',
         done: false,
         id: uuid(),
         active: false,
       },
       {
         title: 'Task 3',
-        titlePlaceholder: 'Todo title',
+        titlePlaceholder: 'todo title',
         text: 'task3task3 task3 task',
-        textPlaceholder: 'Todo text',
+        textPlaceholder: 'todo text',
         done: false,
         id: uuid(),
         active: false,
@@ -83,27 +82,27 @@ const mockedList: TodoContainerType[] = [
     todos: [
       {
         title: 'Task 1',
-        titlePlaceholder: 'Todo title',
+        titlePlaceholder: 'todo title',
         text: 'task1task1 task1 task',
-        textPlaceholder: 'Todo text',
+        textPlaceholder: 'todo text',
         done: false,
         id: uuid(),
         active: false,
       },
       {
         title: 'Task 2',
-        titlePlaceholder: 'Todo title',
+        titlePlaceholder: 'todo title',
         text: 'task1task2 task2 task',
-        textPlaceholder: 'Todo text',
+        textPlaceholder: 'todo text',
         done: false,
         id: uuid(),
         active: false,
       },
       {
         title: 'Task 3',
-        titlePlaceholder: 'Todo title',
+        titlePlaceholder: 'todo title',
         text: 'task3task3 task3 task',
-        textPlaceholder: 'Todo text',
+        textPlaceholder: 'todo text',
         done: false,
         id: uuid(),
         active: false,
@@ -119,9 +118,9 @@ function App() {
   const addTodo = (containerId: TodoContainerType['id']) => {
     const emptyTask = {
       title: '',
-      titlePlaceholder: 'Todo title',
+      titlePlaceholder: 'todo title',
       text: '',
-      textPlaceholder: 'Todo text',
+      textPlaceholder: 'todo text',
       done: false,
       id: uuid(),
       active: true,

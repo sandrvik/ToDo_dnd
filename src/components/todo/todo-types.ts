@@ -8,9 +8,6 @@ export type TodoType = {
   active: boolean;
 };
 
-export type TodoContainerType = {
-  id: string;
-  title: string;
-  active: boolean;
-  todos: TodoType[];
-};
+export enum Items {
+  TODO = 'todo',
+}

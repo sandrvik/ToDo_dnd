@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export default function useAutoFocus(property: boolean, callback: () => void) {
+export default function useAutofocus(property: boolean, callback: () => void) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {

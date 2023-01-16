@@ -1,4 +1,4 @@
-import './CountIcon.scss';
+import './count-icon.scss';
 
 type CountIconProps = {
   children: number | string;

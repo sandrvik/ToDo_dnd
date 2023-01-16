@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
-import './Button.scss';
+import './button.scss';
 
 type ButtonProps = {
   width?: string;
