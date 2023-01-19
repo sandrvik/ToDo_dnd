@@ -1,13 +1,12 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { DropTargetMonitor, useDrag, useDrop, XYCoord } from 'react-dnd';
-import { TodoContainerType, TodoType } from '../../types/todoTypes';
-import Input from '../UI/Input/Input';
-import TextArea from '../UI/Input/TextArea';
-import './Todo.css';
-import Items from '../types/types';
-import useAutoFocus from '../../hooks/useAutofocus';
-import CrossIcon from '../UI/CustomIcons/CrossIcon';
-import getIsDraggedAfterMiddle from '../../utilities/utilities';
+import { Input, TextArea } from '@components/ui/input';
+import './todo.css';
+import useAutofocus from '@hooks/use-autofocus';
+import CrossIcon from '@components/ui/custom-icons/cross-icon';
+import getIsDraggedAfterMiddle from '@utilities/utilities';
+import { TodoContainerType } from '@components/todo-container/todo-container-types';
+import { Items, TodoType } from './todo-types';
 
 type TodoProps = {
   todo: TodoType;
@@ -152,7 +151,7 @@ export default function Todo({
     });
   };
 
-  const inputRef = useAutoFocus(todo.active, deactivateFocus);
+  const inputRef = useAutofocus(todo.active, deactivateFocus);
 
   const handleSaveTitle = (id: string) => {
     setTodoContainers((containers) => {
