@@ -13,12 +13,23 @@ import Button from '../UI/Button/Button';
 type TodoContainerProps = {
   container: TodoContainerType;
   addTodo: (id: TodoContainerType['id']) => void;
+  handleDropOnEmptyContainer: (
+    movedItem: TodoType,
+    from: TodoContainerType['id'],
+    to: TodoContainerType['id'],
+  ) => void;
   setTodoContainers: Dispatch<SetStateAction<TodoContainerType[]>>;
   children: JSX.Element[];
 };
 
 export default function TodoContainer(props: TodoContainerProps): JSX.Element {
-  const { container, children, addTodo, setTodoContainers } = props;
+  const {
+    container,
+    children,
+    addTodo,
+    handleDropOnEmptyContainer,
+    setTodoContainers,
+  } = props;
 
   const [containerTitle, setContainerTitle] = useState<string>(container.title);
 
@@ -29,26 +40,7 @@ export default function TodoContainer(props: TodoContainerProps): JSX.Element {
     };
     const { idx: index, containerId, ...plainTask } = dragged;
     if (container.todos.length === 0) {
-      setTodoContainers((containers) => {
-        return containers.map((c) => {
-          if (c.id === container.id) {
-            return {
-              ...c,
-              todos: [plainTask],
-            };
-          }
-          if (c.id === containerId) {
-            const listWithoutDraggedTask = c.todos.filter(
-              (t) => t.id !== dragged.id,
-            );
-            return {
-              ...c,
-              todos: listWithoutDraggedTask,
-            };
-          }
-          return c;
-        });
-      });
+      handleDropOnEmptyContainer(plainTask, containerId, container.id);
       dragged.containerId = container.id;
     }
   };

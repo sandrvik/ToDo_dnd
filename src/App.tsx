@@ -164,6 +164,33 @@ function App() {
     setTodoContainers((containers) => [...containers, emptyContainer]);
   };
 
+  const handleDropOnEmptyContainer = (
+    movedItem: TodoType,
+    from: TodoContainerType['id'],
+    to: TodoContainerType['id'],
+  ) => {
+    setTodoContainers((containers) => {
+      return containers.map((c) => {
+        if (c.id === to) {
+          return {
+            ...c,
+            todos: [movedItem],
+          };
+        }
+        if (c.id === from) {
+          const listWithoutDraggedTask = c.todos.filter(
+            (t) => t.id !== movedItem.id,
+          );
+          return {
+            ...c,
+            todos: listWithoutDraggedTask,
+          };
+        }
+        return c;
+      });
+    });
+  };
+
   const renderTodos = (
     todos: TodoType[],
     containerId: TodoContainerType['id'],
@@ -198,6 +225,7 @@ function App() {
                 container={c}
                 addTodo={() => addTodo(c.id)}
                 setTodoContainers={setTodoContainers}
+                handleDropOnEmptyContainer={handleDropOnEmptyContainer}
               >
                 {renderTodos(c.todos, c.id)}
               </TodoContainer>
