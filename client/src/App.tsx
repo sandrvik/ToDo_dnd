@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { v4 as uuid } from 'uuid';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { TodoContainer, TodoContainerType } from '@components/todo-container';
-import { Todo, TodoType } from '@components/todo';
+import { TodoContainer, TodoContainerType } from './components/todo-container';
+import { Todo, TodoType } from './components/todo';
+import { testRequest } from './api/api';
 
 const mockedList: TodoContainerType[] = [
   {
@@ -114,6 +115,16 @@ const mockedList: TodoContainerType[] = [
 function App() {
   const [todoContainers, setTodoContainers] =
     useState<TodoContainerType[]>(mockedList);
+  const [response, setResponse] = useState<string>('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const resp = await testRequest();
+      setResponse(resp);
+    };
+
+    fetchData().catch((e) => console.log(`Something went wrong: ${e}`));
+  }, []);
 
   const addTodo = (containerId: TodoContainerType['id']) => {
     const emptyTask = {
@@ -181,6 +192,7 @@ function App() {
 
   return (
     <div className="App">
+      <div>Test: {response}</div>
       <DndProvider backend={HTML5Backend}>
         <div className="containersWrapper">
           <button
