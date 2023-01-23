@@ -1,17 +1,9 @@
 import {Router, Response, Request} from "express";
+import {getContainers, addContainer} from "../controllers/todos";
 
 const router: Router = Router();
 
-const testMessage = "Server response";
-
-const getTest = (req: Request, res: Response) => {
-    try {
-        res.status(200).json(testMessage);
-    } catch (error) {
-        throw error;
-    }
-}
-
-router.get('/', getTest);
+router.get('/', getContainers);
+router.post('/', addContainer);
 
 export default router;
