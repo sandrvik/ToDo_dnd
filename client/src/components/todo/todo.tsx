@@ -5,7 +5,7 @@ import './todo.css';
 import useAutofocus from '@hooks/use-autofocus';
 import CrossIcon from '@components/ui/custom-icons/cross-icon';
 import getIsDraggedAfterMiddle from '@utilities/utilities';
-import { TodoContainerType } from '@components/todo-container/todo-container-types';
+import { TodoContainerType } from '@components/todo-container';
 import { Items, TodoType } from './todo-types';
 
 type TodoProps = {
